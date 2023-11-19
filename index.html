@@ -1,0 +1,143 @@
+<html>
+<script src="web3.min.js"></script>
+<script>
+document.write("OK");
+
+
+var web3 = new Web3(new Web3.providers.HttpProvider('https://rpc.callisto.network'));
+web3.eth.accounts.privateKeyToAccount('<MY_PK>');
+
+//let _txNonce = web3.eth.getTransactionCount('0xE33b3b74657C9E89e23d8790baB05a6F6Aae93D9');
+
+/*
+let hello;
+getValue().then((response) => { 
+    hello = response; 
+});
+*/
+
+let _txNonce;
+web3.eth.getTransactionCount('0xE33b3b74657C9E89e23d8790baB05a6F6Aae93D9').then((response) => { 
+    _txNonce = response; 
+	console.log("NONCE: ", _txNonce);
+for (let i = _txNonce; i < _txNonce + 100; i++) {
+// SEND TX 100 times
+
+web3.eth.accounts.signTransaction({
+    to: '0x56067f64f4edec5f665853de4bafb024a3da0701',
+    value: '0',
+    gas: '645908',
+	data: '0x96d4f640000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000186a0000000000000000000000000bf6c50889d3a620eb42c0f188b65ade90de958c4000000000000000000000000000000000000000000000000000000000000003e000000000000000000000000000000000000000000000000000000000000000e',
+	nonce: i,
+}, '<MY_PK>')
+.then(signed => {
+	console.log("Starting to send");
+    web3.eth.sendSignedTransaction(signed.rawTransaction).on('receipt', console.log)
+})
+// END FOR
+}
+});
+// web3.utils.toHex(nonce)
+
+/*
+
+web3.eth.accounts.signTransaction(tx, privateKey).then(signed => {
+    web3.eth.sendSignedTransaction(signed.rawTransaction).on('receipt', console.log)
+})
+
+*/
+
+
+
+
+
+
+
+//web3.eth.accounts.signTransaction(tx, 348ce564d427a3311b6536bbcff9390d69395b06ed6c486954e971d960fe8709);
+
+/*
+var tx = web3.eth.accounts.signTransaction({
+    to: '0xF0109fC8DF283027b6285cc889F5aA624EaC1F55',
+    value: '0',
+    gas: '2000000',
+	data: '0x01100'
+}, '<MY_PK>')
+.then(console.log);
+
+web3.eth.sendSignedTransaction(tx.rawTransaction);
+*/
+
+/*
+web3.eth.sendTransaction({
+    from: '0xE33b3b74657C9E89e23d8790baB05a6F6Aae93D9',
+	to:   '0xE33b3b74657C9E89e23d8790baB05a6F6Aae93D9',
+	gasPrice: '1020000000000',
+	//gas: '100000',
+    //data: '0x01000'
+}, function(error, hash){
+    // TODO
+	console.log("HASH");
+	console.log(hash);
+	console.log("ERROR");
+	console.log(error);
+});
+
+*/
+
+
+// PK 1111111111111933111111111111111111111111111111111111111111111119
+// ADDRESS 0xE33b3b74657C9E89e23d8790baB05a6F6Aae93D9
+
+/// WEB3 TX
+
+
+
+// 1. Add the Web3 provider logic here:
+/*
+const providerRPC = {
+  development: 'http://localhost:9944',
+  moonbase: 'https://rpc.api.moonbase.moonbeam.network',
+};
+const web3 = new Web3(providerRPC.moonbase); // Change to correct network
+
+// 2. Create account variables
+const accountFrom = {
+  privateKey: 'INSERT_YOUR_PRIVATE_KEY',
+  address: 'INSERT_PUBLIC_ADDRESS_OF_PK',
+};
+const addressTo = 'INSERT_TO_ADDRESS';
+
+// 3. Create send function
+const send = async () => {
+  console.log(
+    `Attempting to send transaction from ${accountFrom.address} to ${addressTo}`
+  );
+
+  // 4. Prepare and sign tx with PK
+  const createTransaction = await web3.eth.accounts.signTransaction(
+    {
+      gas: 21000,
+      to: addressTo,
+      value: web3.utils.toWei('0', 'ether'),
+      gasPrice: await web3.eth.getGasPrice(),
+      nonce: await web3.eth.getTransactionCount(accountFrom.address),
+    },
+    accountFrom.privateKey
+  );
+
+  // 5. Send tx and wait for receipt
+  const createReceipt = await web3.eth.sendSignedTransaction(
+    createTransaction.rawTransaction
+  );
+  console.log(
+    `Transaction successful with hash: ${createReceipt.transactionHash}`
+  );
+};
+
+// 6. Call send function
+send();
+*/
+</script>
+<body>
+</body>
+</html> 
